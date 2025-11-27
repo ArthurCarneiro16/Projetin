@@ -1,42 +1,55 @@
-CREATE DATABASE AppFit;
-USE AppFit;
+AppFit – Sistema de Registro de Treinos
 
-CREATE TABLE usuario (
-    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-    nm_usuario VARCHAR(100) NOT NULL,
-    senha VARCHAR(255) NOT NULL,
-    altura FLOAT NOT NULL,
-    peso DECIMAL(5,2) NOT NULL,
-    idade INT NOT NULL,
-    sexo varchar(20)
-);
+O AppFit é um sistema em Python integrado ao MySQL, usado para registrar treinos, calcular IMC/TMB e exibir histórico de atividades.
 
-CREATE TABLE ficha (
-    id_ficha INT AUTO_INCREMENT PRIMARY KEY,
-    exercicio VARCHAR(100) NOT NULL,
-    atv_peso DECIMAL(5,2),
-    repeticoes INT,
-    tempo date,
-    gasto_calorico FLOAT NOT NULL,
-    id_usuario INT,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
-);
+🔧 Tecnologias
 
-create table atv_cardio(
+Python 3
 
-	cardio_id int auto_increment primary key,
-    tempo_atv time,
-    ritimo_medio time,
-    id_usuario int,
-    foreign key (id_usuario) references usuario (id_usuario)
-    
-);
+MySQL
 
-CREATE TABLE historico (
-    id_historico INT AUTO_INCREMENT PRIMARY KEY,
-    dia DATETIME NOT NULL,
-    id_ficha INT,
-    id_usuario INT,
-    FOREIGN KEY (id_ficha) REFERENCES ficha(id_ficha),
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
-);
+mysql-connector-python
+
+📌 Funcionalidades
+
+Login e criação de usuário
+
+Registro de exercícios
+
+Cardio (corrida, caminhada, natação, ciclismo)
+
+Musculação (peso, repetições, séries)
+
+Cálculo de IMC e TMB
+
+Histórico dos últimos 10 exercícios
+
+Cálculo automático de gasto calórico
+
+🗄 Banco de Dados
+
+Banco: AppFit
+Tabelas principais:
+
+usuario – dados do usuário
+
+ficha – registros de musculação
+
+atv_cardio – atividades de cardio
+
+historico – últimos exercícios realizados
+
+Execute os comandos SQL incluídos no arquivo para criar as tabelas.
+
+▶️ Como executar
+
+Instale o conector:
+
+pip install mysql-connector-python
+
+
+Configure as credenciais MySQL no código.
+
+Execute o script:
+
+python appfit.py
