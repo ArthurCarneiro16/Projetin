@@ -1,0 +1,53 @@
+Script sql
+
+CREATE DATABASE AppFit;
+USE AppFit;
+
+
+CREATE TABLE usuario (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nm_usuario VARCHAR(100) NOT NULL,
+    senha VARCHAR(255) NOT NULL,	
+    altura FLOAT NOT NULL,
+    peso DECIMAL(5,2) NOT NULL,
+    idade INT NOT NULL,
+    sexo ENUM('MASCULINO', 'FEMININO', 'PREFIRO NAO DECLARAR') NOT NULL
+);
+
+
+CREATE TABLE atv_fisica (
+    id_atv INT AUTO_INCREMENT PRIMARY KEY, 
+    nm_atv VARCHAR(100) NOT NULL,
+    tempo INT NOT NULL,
+    id_tipoATV INT,
+    FOREIGN KEY (id_tipoATV) REFERENCES tipos_atv(id_tipoATV) 
+);
+
+CREATE TABLE tipos_atv (
+    id_tipoATV INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(100) NOT NULL,
+    met FLOAT NOT NULL 
+);
+
+CREATE TABLE ficha (
+    id_ficha INT AUTO_INCREMENT PRIMARY KEY,
+    exercicio VARCHAR(100) NOT NULL,
+    atv_peso DECIMAL(5,2) NOT NULL,
+    repeticoes INT NOT NULL,
+    id_usuario INT,
+    id_atv INT,
+    gasto_calorico FLOAT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_atv) REFERENCES atv_fisica(id_atv)
+);
+
+
+CREATE TABLE historico (
+
+    id_historico INT AUTO_INCREMENT PRIMARY KEY,
+    dia DATETIME NOT NULL,
+    id_ficha INT,
+    id_usuario INT,
+    FOREIGN KEY (id_ficha) REFERENCES ficha(id_ficha), -- Referência à tabela ficha
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) -- Referência à tabela usuario
+);
