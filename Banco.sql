@@ -1,4 +1,3 @@
-*.sql linguist-detectable=true
 CREATE DATABASE AppFit;
 USE AppFit;
 
