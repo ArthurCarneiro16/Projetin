@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AppFit — Diário de Treinos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ TELA DE AUTENTICAÇÃO ============ -->
+<section id="tela-auth" class="tela-auth">
+  <div class="quadro-auth">
+    <h1 class="titulo-chalk">AppFit</h1>
+    <p class="subtitulo">seu diário de treino, no giz</p>
+
+    <div class="abas">
+      <button class="aba ativa" data-aba="login">Entrar</button>
+      <button class="aba" data-aba="cadastro">Criar conta</button>
+    </div>
+
+    <form id="form-login" class="form-auth">
+      <label>Nome de usuário
+        <input type="text" id="login-nome" required autocomplete="username">
+      </label>
+      <label>Senha
+        <input type="password" id="login-senha" required autocomplete="current-password">
+      </label>
+      <p class="erro" id="login-erro"></p>
+      <button type="submit" class="btn-chalk">Entrar</button>
+    </form>
+
+    <form id="form-cadastro" class="form-auth escondido">
+      <label>Nome de usuário
+        <input type="text" id="cad-nome" required>
+      </label>
+      <label>Senha
+        <input type="password" id="cad-senha" required>
+      </label>
+      <div class="linha-dupla">
+        <label>Altura (m)
+          <input type="number" step="0.01" id="cad-altura" placeholder="1.75" required>
+        </label>
+        <label>Peso (kg)
+          <input type="number" step="0.1" id="cad-peso" placeholder="70" required>
+        </label>
+      </div>
+      <div class="linha-dupla">
+        <label>Idade
+          <input type="number" id="cad-idade" required>
+        </label>
+        <label>Sexo
+          <select id="cad-sexo" required>
+            <option value="">Selecione</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+          </select>
+        </label>
+      </div>
+      <p class="erro" id="cad-erro"></p>
+      <button type="submit" class="btn-chalk">Criar conta e entrar</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ APP PRINCIPAL ============ -->
+<div id="app" class="app escondido">
+
+  <aside class="sidebar">
+    <h1 class="titulo-chalk logo">AppFit</h1>
+    <p class="usuario-atual" id="nome-usuario-sidebar"></p>
+
+    <nav class="nav-quadro">
+      <button class="nav-item ativo" data-secao="resumo">Resumo</button>
+      <button class="nav-item" data-secao="registrar">Registrar treino</button>
+      <button class="nav-item" data-secao="metabolismo">IMC &amp; TMB</button>
+      <button class="nav-item" data-secao="historico">Histórico</button>
+    </nav>
+
+    <button id="btn-sair" class="btn-sair">Sair</button>
+  </aside>
+
+  <main class="conteudo">
+
+    <!-- RESUMO -->
+    <section id="secao-resumo" class="secao">
+      <h2 class="titulo-secao">Resumo de hoje</h2>
+      <div class="grade-cards">
+        <div class="card-giz">
+          <span class="etiqueta">Peso corporal</span>
+          <span class="valor-grande" id="resumo-peso">—</span>
+        </div>
+        <div class="card-giz">
+          <span class="etiqueta">Altura</span>
+          <span class="valor-grande" id="resumo-altura">—</span>
+        </div>
+        <div class="card-giz destaque">
+          <span class="etiqueta">Último gasto calórico</span>
+          <span class="valor-grande" id="resumo-ultimo-gasto">—</span>
+        </div>
+      </div>
+      <p class="dica">Use o menu ao lado para registrar um exercício novo ou calcular seu IMC e TMB.</p>
+    </section>
+
+    <!-- REGISTRAR -->
+    <section id="secao-registrar" class="secao escondido">
+      <h2 class="titulo-secao">Registrar treino</h2>
+
+      <div class="abas">
+        <button class="aba ativa" data-tipo="cardio">Cardio</button>
+        <button class="aba" data-tipo="musculacao">Musculação</button>
+      </div>
+
+      <form id="form-cardio" class="form-registro">
+        <label>Exercício
+          <select id="cardio-exercicio" required>
+            <option value="Corrida (5:35 min/km)">Corrida (5:35 min/km)</option>
+            <option value="Caminhada">Caminhada</option>
+            <option value="Natação">Natação</option>
+            <option value="Ciclismo">Ciclismo</option>
+          </select>
+        </label>
+        <div class="linha-dupla">
+          <label>Duração (min)
+            <input type="number" id="cardio-duracao" required>
+          </label>
+          <label>Ritmo médio (mm:ss)
+            <input type="text" id="cardio-ritmo" placeholder="05:35">
+          </label>
+        </div>
+        <p class="feedback" id="cardio-feedback"></p>
+        <button type="submit" class="btn-chalk">Registrar cardio</button>
+      </form>
+
+      <form id="form-musculacao" class="form-registro escondido">
+        <label>Nome do exercício
+          <input type="text" id="musc-exercicio" placeholder="Supino reto" required>
+        </label>
+        <div class="linha-dupla">
+          <label>Peso (kg)
+            <input type="number" step="0.5" id="musc-peso" required>
+          </label>
+          <label>Repetições
+            <input type="number" id="musc-repeticoes" required>
+          </label>
+        </div>
+        <div class="linha-dupla">
+          <label>Séries
+            <input type="number" id="musc-series" required>
+          </label>
+          <label>Tempo total (min)
+            <input type="number" id="musc-tempo" required>
+          </label>
+        </div>
+        <p class="feedback" id="musc-feedback"></p>
+        <button type="submit" class="btn-chalk">Registrar musculação</button>
+      </form>
+    </section>
+
+    <!-- METABOLISMO -->
+    <section id="secao-metabolismo" class="secao escondido">
+      <h2 class="titulo-secao">IMC &amp; TMB</h2>
+
+      <div class="grade-dupla">
+        <div class="painel-giz">
+          <h3>Índice de Massa Corporal</h3>
+          <button id="btn-calcular-imc" class="btn-chalk secundario">Calcular meu IMC</button>
+          <div id="resultado-imc" class="resultado-calculo escondido">
+            <span class="valor-grande" id="imc-valor">—</span>
+            <span class="classificacao" id="imc-classificacao"></span>
+          </div>
+        </div>
+
+        <div class="painel-giz">
+          <h3>Taxa Metabólica Basal</h3>
+          <label>Quantas vezes por semana você treina?
+            <input type="number" id="tmb-freq" min="0" max="14" required>
+          </label>
+          <button id="btn-calcular-tmb" class="btn-chalk secundario">Calcular meu TMB</button>
+          <div id="resultado-tmb" class="resultado-calculo escondido">
+            <span class="valor-grande" id="tmb-gasto">—</span>
+            <span class="classificacao">kcal estimadas por dia</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTÓRICO -->
+    <section id="secao-historico" class="secao escondido">
+      <h2 class="titulo-secao">Últimos 10 exercícios</h2>
+      <div id="lista-historico" class="lista-historico">
+        <p class="dica">Carregando...</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
